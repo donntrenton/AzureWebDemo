@@ -1,7 +1,10 @@
-import java.io.IOException;
+// General imports
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+
+// Imports for exceptions
+import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.xml.parsers.ParserConfigurationException;
 import com.microsoft.windowsazure.exception.ServiceException;
 import org.xml.sax.SAXException;
@@ -27,10 +30,10 @@ public class WebCreator {
 	  private static String keyStorePassword = "Poindexter";
 
 	  // Define website parameter values.
-	  private static String websiteName = "WebDemoWebsite0320";
+	  private static String websiteName = "WebDemoWebsite0324";
 	  private static String domainName = ".azurewebsites.net";
 	  private static String webSpaceName = WebSpaceNames.WESTUSWEBSPACE;
-	  private static String hostingPlanName = "DefaultHostingPlan0320";
+	  private static String hostingPlanName = "WebDemoHostingPlan0324";
 
 	  private static void createWebSite() throws Exception {
 
@@ -38,17 +41,17 @@ public class WebCreator {
 	      Configuration config = ManagementConfiguration.configure(
 	          new URI(uri),
 	          subscriptionId,
-	          keyStoreLocation, // path to the JKS file
-	          keyStorePassword, // password for the JKS file
-	          KeyStoreType.jks  // flag that you are using a JKS keystore
+	          keyStoreLocation,  // Path to the JKS file
+	          keyStorePassword,  // Password for the JKS file
+	          KeyStoreType.jks   // Flag that you are using a JKS keystore
 	          );
 
-	      // Create the website management client to call Azure APIs;
-	      // pass it the service management configuration object.
+	      // Create the website management client to call Azure APIs
+	      // and pass it the service management configuration object.
 	      WebSiteManagementClient webSiteManagementClient = WebSiteManagementService.create(config);
 
 	      // Set web hosting plan parameters.
-          // Create a web hosting plan for the webspace with the specified parameters.
+          // This creates a web hosting plan for the webspace with the specified parameters.
 	      WebHostingPlanCreateParameters hostingPlanParams = new WebHostingPlanCreateParameters();
 	      hostingPlanParams.setName(hostingPlanName);
 	      hostingPlanParams.setSKU(SkuOptions.Free);
@@ -67,7 +70,7 @@ public class WebCreator {
 	      webSiteCreateParameters.setServerFarm(hostingPlanName);
 	      webSiteCreateParameters.setWebSpace(webSpaceDetails);
 
-	      // Set site mode and compute mode
+	      // Set site mode and compute mode.
 	      WebSiteGetUsageMetricsResponse.UsageMetric usageMetric = new WebSiteGetUsageMetricsResponse.UsageMetric();
 	      usageMetric.setSiteMode(WebSiteMode.Basic);
 	      usageMetric.setComputeMode(WebSiteComputeMode.Shared);
@@ -79,15 +82,15 @@ public class WebCreator {
 	      WebSite website = new WebSite();
 	      website.setHostNames(fullWebsiteName);
 
-	      // Create the website
+	      // Create the website.
 	      WebSiteCreateResponse webSiteCreateResponse = webSiteManagementClient.getWebSitesOperations().create(webSpaceName, webSiteCreateParameters);
 
-	      // Output the HTTP status code of the response; 200 indicates the request succeeded; 4xx indicates failure
+	      // Output the HTTP status code of the response; 200 indicates the request succeeded; 4xx indicates failure.
 	      System.out.println("----------");
 	      System.out.println("Website created - HTTP response " + webSiteCreateResponse.getStatusCode() + "\n");
 
-	      // Output name of the website this app created
-	      // getName retrieves the name of the web site associated with the website response object
+	      // Output name of the website this app created.
+	      // getName retrieves the name of the web site associated with the website response object.
 	      String websitename = webSiteCreateResponse.getWebSite().getName();
 	      System.out.println("----------\n");
 	      System.out.println("Name of website created: " + websitename + "\n");
@@ -101,6 +104,6 @@ public class WebCreator {
 	    // Create website
 		  createWebSite();
 
-	}
+	}  // end of main()
 
-}
+}  // end of WebCreator class
