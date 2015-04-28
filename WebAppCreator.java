@@ -30,7 +30,7 @@ public class WebAppCreator {
     private static String keyStorePassword = "Poindexter";
 
     // Define Web Apps parameter values.
-    private static String webAppName = "WebDemoWebApp0402";
+    private static String webAppName = "WebDemoWebApp0419";
     private static String domainName = ".azurewebsites.net";
     private static String webSpaceName = WebSpaceNames.WESTUSWEBSPACE;
     private static String hostingPlanName = "WebDemoAppServicePlan0402";
